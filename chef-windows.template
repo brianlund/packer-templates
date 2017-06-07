@@ -2,7 +2,14 @@
     "variables": {
         "aws_access_key":     "{{env `AWS_ACCESS_KEY_ID`}}",
             "aws_secret_key":     "{{env `AWS_SECRET_ACCESS_KEY`}}",
-            "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}"
+            "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}",
+            "aws_ami":      "{{env `aws_ami`}}",
+            "aws_vpc_id":   "{{env `aws_vpc_id`}}",
+            "aws_subnet":   "{{env `aws_subnet`}}",
+            "aws_instance_profile":   "{{env `aws_instance_profile`}}",
+            "chef_server_url":   "{{env `chef_server_url`}}",
+            "chef_environment": "{{env `chef_environment`}}"
+
     },
         "builders": [{
             "type": "amazon-ebs",
@@ -36,7 +43,7 @@
             "guest_os_type": "windows",
             "ssl_verify_mode": "verify_none",
             "run_list": [ "{{user `chef_run_list`}}" ],
-            "validation_key_path" : "config/private.pem",
+            "validation_key_path" : "/home/ec2-user/packer/config/private.pem",
             "validation_client_name": "pivotal",
             "chef_environment": "{{user `chef_environment`}}"
         },
