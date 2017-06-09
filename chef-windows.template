@@ -10,6 +10,7 @@
             "chef_run_list":    "{{env `chef_run_list`}}",
             "chef_server_url":   "{{env `chef_server_url`}}",
             "chef_environment": "{{env `chef_environment`}}"
+            "chef_validationkey": "{{env `chef_validationkey`}}"
 
     },
         "builders": [{
@@ -44,7 +45,7 @@
             "guest_os_type": "windows",
             "ssl_verify_mode": "verify_none",
             "run_list": [ "{{user `chef_run_list`}}" ],
-            "validation_key_path" : "/home/ec2-user/packer/config/private.pem",
+            "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationkey`}}",
             "validation_client_name": "pivotal",
             "chef_environment": "{{user `chef_environment`}}"
         },
