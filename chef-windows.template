@@ -29,7 +29,7 @@
                 "device_name": "sdh",
                 "volume_size": "30"
             }],
-            "disable_stop_instance": "true",
+            "disable_stop_instance": "false",
             "ami_name": "ils-ami {{timestamp}}",
             "user_data_file": "{{template_dir}}/setup_winrm.txt",
 
@@ -52,7 +52,8 @@
         {
             "type": "powershell",
             "inline": [
-                "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
+                "(Get-Content C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1) | Foreach-Object {$_ -replace '\\shutdown',''} | Out-File C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1",
+            "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
             "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1"
                 ]
         }
