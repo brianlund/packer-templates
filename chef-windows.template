@@ -27,7 +27,7 @@
             "ami_block_device_mappings": [{
                 "volume_type": "gp2",
                 "device_name": "sdh",
-                "volume_size": "30"
+                "volume_size": "35"
             }],
             "disable_stop_instance": "false",
             "ami_name": "ils-ami {{timestamp}}",
