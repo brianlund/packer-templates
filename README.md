@@ -18,3 +18,5 @@ The following variables need to be passed from the environment/CI server:
 assume-role.sh contains a sample script for assuming a cross account IAM role that can be used to launch the builder instance in another account, it will set the AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_SESSION_TOKEN variables.
 
 In addition the host running packer needs a validator secret key available, the path is currently hardcoded in the template.
+
+Accompanying blog post explaining the templates here: https://cze.dk/building-windows-2016-ami-on-aws-with-packer-and-chef/
