@@ -1,0 +1,46 @@
+{
+  "variables": {
+    "aws_access_key":     "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key":     "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}",
+        "aws_ami":      "{{env `aws_ami`}}",
+        "aws_vpc_id":   "{{env `aws_vpc_id`}}",
+        "aws_subnet":   "{{env `aws_subnet`}}",
+        "aws_instance_profile":   "{{env `aws_instance_profile`}}",
+        "chef_run_list":    "{{env `chef_run_list`}}",
+        "chef_server_url":   "{{env `chef_server_url`}}",
+        "chef_environment": "{{env `chef_environment`}}",
+        "chef_validationpem": "{{env `chef_validationpem`}}"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "eu-west-1",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.xlarge",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-autossl {{timestamp}}"
+    }],
+    "provisioners": [
+      {
+        "type": "chef-client",
+        "server_url": "{{user `chef_server_url`}}",
+        "ssl_verify_mode": "verify_none",
+				"install_command": "curl -L https://omnitruck.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 13.6.4",
+        "run_list": [ "{{user `chef_run_list`}}" ],
+        "validation_key_path" : "{{user `chef_validationpem`}}",
+        "validation_client_name": "pivotal",
+        "chef_environment": "{{user `chef_environment`}}"
+      }]
+    }
+    
+    
