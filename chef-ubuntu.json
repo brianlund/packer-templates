@@ -29,7 +29,7 @@
     },
     "instance_type": "t2.xlarge",
     "ssh_username": "ubuntu",
-    "ami_name": "packer-autossl {{timestamp}}"
+    "ami_name": "{{user `chef_run_list`}}-{{user `chef_environment`}}-{{timestamp}}"
     }],
     "provisioners": [
       {
