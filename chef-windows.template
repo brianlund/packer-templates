@@ -11,6 +11,8 @@
             "chef_server_url":   "{{env `chef_server_url`}}",
             "chef_environment": "{{env `chef_environment`}}",
             "chef_validationpem": "{{env `chef_validationpem`}}"
+				    "chef_clientname": "{{env `chef_clientname`}}"
+
 
     },
         "builders": [{
@@ -46,7 +48,7 @@
             "ssl_verify_mode": "verify_none",
             "run_list": [ "{{user `chef_run_list`}}" ],
             "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationpem`}}",
-            "validation_client_name": "pivotal",
+            "validation_client_name": "{{user `chef_clientname`}}",
             "chef_environment": "{{user `chef_environment`}}"
         },
         {
