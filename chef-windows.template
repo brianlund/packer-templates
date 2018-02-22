@@ -10,7 +10,7 @@
             "chef_run_list":    "{{env `chef_run_list`}}",
             "chef_server_url":   "{{env `chef_server_url`}}",
             "chef_environment": "{{env `chef_environment`}}",
-            "chef_validationpem": "{{env `chef_validationpem`}}"
+            "chef_validationpem": "{{env `chef_validationpem`}}",
 				    "chef_clientname": "{{env `chef_clientname`}}"
 
 
