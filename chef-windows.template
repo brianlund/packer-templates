@@ -1,65 +1,64 @@
 {
     "variables": {
         "aws_access_key":     "{{env `AWS_ACCESS_KEY_ID`}}",
-            "aws_secret_key":     "{{env `AWS_SECRET_ACCESS_KEY`}}",
-            "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}",
-            "aws_ami":      "{{env `aws_ami`}}",
-            "aws_vpc_id":   "{{env `aws_vpc_id`}}",
-            "aws_subnet":   "{{env `aws_subnet`}}",
-            "aws_instance_profile":   "{{env `aws_instance_profile`}}",
-            "chef_run_list":    "{{env `chef_run_list`}}",
-            "chef_server_url":   "{{env `chef_server_url`}}",
-            "chef_environment": "{{env `chef_environment`}}",
-            "chef_validationpem": "{{env `chef_validationpem`}}",
-				    "chef_clientname": "{{env `chef_clientname`}}"
-
-
+        "aws_secret_key":     "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}",
+        "aws_ami":      "{{env `aws_ami`}}",
+        "aws_vpc_id":   "{{env `aws_vpc_id`}}",
+        "aws_subnet":   "{{env `aws_subnet`}}",
+        "aws_instance_profile":   "{{env `aws_instance_profile`}}",
+        "chef_run_list":    "{{env `chef_run_list`}}",
+        "chef_server_url":   "{{env `chef_server_url`}}",
+        "chef_environment": "{{env `chef_environment`}}",
+        "chef_validationpem": "{{env `chef_validationpem`}}",
+        "chef_clientname": "{{env `chef_clientname`}}"
     },
-        "builders": [{
-            "type": "amazon-ebs",
-            "access_key":               "{{user `aws_access_key`}}",
-            "secret_key":               "{{user `aws_secret_key`}}",
-            "token":                    "{{user `aws_session_token`}}",
-            "region": "eu-west-1",
-            "source_ami": "{{user `aws_ami`}}",
-            "vpc_id":   "{{user `aws_vpc_id`}}",
-            "subnet_id":  "{{user `aws_subnet`}}",
-            "instance_type": "c4.large",
-            "iam_instance_profile": "{{user `aws_instance_profile`}}",
-            "ami_block_device_mappings": [{
-                "volume_type": "gp2",
-                "device_name": "sdh",
-                "volume_size": "50"
+    "builders": [{
+        "type": "amazon-ebs",
+        "access_key":               "{{user `aws_access_key`}}",
+        "secret_key":               "{{user `aws_secret_key`}}",
+        "token":                    "{{user `aws_session_token`}}",
+        "region": "eu-west-1",
+        "source_ami": "{{user `aws_ami`}}",
+        "vpc_id":   "{{user `aws_vpc_id`}}",
+        "subnet_id":  "{{user `aws_subnet`}}",
+        "instance_type": "t2.large",
+        "iam_instance_profile": "{{user `aws_instance_profile`}}",
+        "ami_block_device_mappings": [{
+            "volume_type": "gp2",
+            "device_name": "sdh",
+            "volume_size": "50"
             }],
             "disable_stop_instance": "false",
-            "ami_name": "simplesite-ami {{timestamp}}",
+            "ami_name": "ami-{{user `chef_environment`}}-{{timestamp}}",
             "user_data_file": "{{template_dir}}/setup_winrm.txt",
-
+            
             "communicator": "winrm",
             "winrm_username": "Administrator",
             "winrm_timeout": "60m"
-        }],
-
-        "provisioners": [
-        {
-            "type": "chef-client",
-            "server_url": "{{user `chef_server_url`}}",
-            "guest_os_type": "windows",
-            "ssl_verify_mode": "verify_none",
-            "run_list": "{{user `chef_run_list`}}",
-            "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationpem`}}",
-            "validation_client_name": "{{user `chef_clientname`}}",
-            "chef_environment": "{{user `chef_environment`}}"
-        },
-        {
-            "type": "windows-restart"
-        },
-        {
-            "type": "powershell",
-            "inline": [
-                "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
-            "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown"
-                ]
+            }],
+            
+            "provisioners": [
+                {
+                    "type": "chef-client",
+                    "server_url": "{{user `chef_server_url`}}",
+                    "guest_os_type": "windows",
+                    "ssl_verify_mode": "verify_none",
+                    "run_list": "{{user `chef_run_list`}}",
+                    "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationpem`}}",
+                    "validation_client_name": "{{user `chef_clientname`}}",
+                    "chef_environment": "{{user `chef_environment`}}"
+                },
+                {
+                    "type": "windows-restart"
+                },
+                {
+                    "type": "powershell",
+                    "inline": [
+                        "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
+                        "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown"
+                    ]
+                }
+            ]
         }
-    ]
-}
+        
