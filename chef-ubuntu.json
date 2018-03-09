@@ -10,7 +10,8 @@
         "chef_run_list":    "{{env `chef_run_list`}}",
         "chef_server_url":   "{{env `chef_server_url`}}",
         "chef_environment": "{{env `chef_environment`}}",
-        "chef_validationpem": "{{env `chef_validationpem`}}"
+        "chef_validationpem": "{{env `chef_validationpem`}}",
+        "chef_clientname": "{{env `chef_clientname`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -27,9 +28,9 @@
       "owners": ["099720109477"],
       "most_recent": true
     },
-    "instance_type": "t2.xlarge",
+    "instance_type": "t2.large",
     "ssh_username": "ubuntu",
-    "ami_name": "{{user `chef_run_list`}}-{{user `chef_environment`}}-{{timestamp}}"
+    "ami_name": "simplesite-{{user `chef_environment`}}-{{timestamp}}",
     }],
     "provisioners": [
       {
@@ -37,9 +38,9 @@
         "server_url": "{{user `chef_server_url`}}",
         "ssl_verify_mode": "verify_none",
 				"install_command": "curl -L https://omnitruck.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 13.6.4",
-        "run_list": [ "{{user `chef_run_list`}}" ],
-        "validation_key_path" : "{{user `chef_validationpem`}}",
-        "validation_client_name": "pivotal",
+        "run_list": "{{user `chef_run_list`}}",
+        "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationpem`}}",
+        "validation_client_name": "{{user `chef_clientname`}}",
         "chef_environment": "{{user `chef_environment`}}"
       }]
     }

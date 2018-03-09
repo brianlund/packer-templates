@@ -24,7 +24,7 @@
             "source_ami": "{{user `aws_ami`}}",
             "vpc_id":   "{{user `aws_vpc_id`}}",
             "subnet_id":  "{{user `aws_subnet`}}",
-            "instance_type": "c4.xlarge",
+            "instance_type": "c4.large",
             "iam_instance_profile": "{{user `aws_instance_profile`}}",
             "ami_block_device_mappings": [{
                 "volume_type": "gp2",
@@ -32,7 +32,7 @@
                 "volume_size": "50"
             }],
             "disable_stop_instance": "false",
-            "ami_name": "ils-ami {{timestamp}}",
+            "ami_name": "simplesite-ami {{timestamp}}",
             "user_data_file": "{{template_dir}}/setup_winrm.txt",
 
             "communicator": "winrm",
