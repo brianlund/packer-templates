@@ -30,7 +30,7 @@
     },
     "instance_type": "t2.large",
     "ssh_username": "ubuntu",
-    "ami_name": "simplesite-{{user `chef_environment`}}-{{timestamp}}",
+    "ami_name": "simplesite-{{user `chef_environment`}}-{{timestamp}}"
     }],
     "provisioners": [
       {
