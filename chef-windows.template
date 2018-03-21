@@ -47,7 +47,7 @@
             "guest_os_type": "windows",
             "ssl_verify_mode": "verify_none",
             "run_list": "{{user `chef_run_list`}}",
-            "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationpem`}}",
+            "validation_key_path" : "/packer/config/{{user `chef_validationpem`}}",
             "validation_client_name": "{{user `chef_clientname`}}",
             "chef_environment": "{{user `chef_environment`}}"
         },
