@@ -34,12 +34,12 @@
             ],
             "disable_stop_instance": "false",
             "ami_name": "ami-{{user `chef_environment`}}-{{timestamp}}",
-            "user_data_file": "{{template_dir}}/setup_winrm.txt",    
+            "user_data_file": "{{template_dir}}/setup_winrm.txt",
             "communicator": "winrm",
             "winrm_username": "Administrator",
             "winrm_timeout": "60m"
         }
-    ],            
+    ],
     "provisioners": [
         {
             "type": "chef-client",
@@ -57,8 +57,8 @@
         {
             "type": "powershell",
             "inline": [
-                        "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
-                        "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown"
+               "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
+               "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown"
             ]
         }
     ]
