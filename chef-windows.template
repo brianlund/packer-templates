@@ -11,7 +11,8 @@
         "chef_server_url":   "{{env `chef_server_url`}}",
         "chef_environment": "{{env `chef_environment`}}",
         "chef_validationpem": "{{env `chef_validationpem`}}",
-        "chef_clientname": "{{env `chef_clientname`}}"
+        "chef_clientname": "{{env `chef_clientname`}}",
+        "shortname": "{{env `shortname`}}"
     },
     "builders": [
         {
@@ -33,7 +34,7 @@
                 }
             ],
             "disable_stop_instance": "false",
-            "ami_name": "ami-{{user `chef_environment`}}-{{timestamp}}",
+            "ami_name": "{{user `shortname`}}-ami-{{user `chef_environment`}}-{{timestamp}}",
             "user_data_file": "{{template_dir}}/setup_winrm.txt",
             "communicator": "winrm",
             "winrm_username": "Administrator",
