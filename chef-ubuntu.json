@@ -1,17 +1,18 @@
 {
   "variables": {
     "aws_access_key":     "{{env `AWS_ACCESS_KEY_ID`}}",
-        "aws_secret_key":     "{{env `AWS_SECRET_ACCESS_KEY`}}",
-        "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}",
-        "aws_ami":      "{{env `aws_ami`}}",
-        "aws_vpc_id":   "{{env `aws_vpc_id`}}",
-        "aws_subnet":   "{{env `aws_subnet`}}",
-        "aws_instance_profile":   "{{env `aws_instance_profile`}}",
-        "chef_run_list":    "{{env `chef_run_list`}}",
-        "chef_server_url":   "{{env `chef_server_url`}}",
-        "chef_environment": "{{env `chef_environment`}}",
-        "chef_validationpem": "{{env `chef_validationpem`}}",
-        "chef_clientname": "{{env `chef_clientname`}}"
+    "aws_secret_key":     "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "aws_session_token":  "{{env `AWS_SESSION_TOKEN`}}",
+    "aws_ami":      "{{env `aws_ami`}}",
+    "aws_vpc_id":   "{{env `aws_vpc_id`}}",
+    "aws_subnet":   "{{env `aws_subnet`}}",
+    "aws_instance_profile":   "{{env `aws_instance_profile`}}",
+    "chef_run_list":    "{{env `chef_run_list`}}",
+    "chef_server_url":   "{{env `chef_server_url`}}",
+    "chef_environment": "{{env `chef_environment`}}",
+    "chef_validationpem": "{{env `chef_validationpem`}}",
+    "chef_clientname": "{{env `chef_clientname`}}",
+    "shortname": "{{env `shortname`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -42,7 +43,7 @@
         "ssl_verify_mode": "verify_none",
 				"install_command": "curl -L https://omnitruck.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 13.6.4",
         "run_list": "{{user `chef_run_list`}}",
-        "validation_key_path" : "/home/ec2-user/packer/config/{{user `chef_validationpem`}}",
+        "validation_key_path" : "/packer/config/{{user `chef_validationpem`}}",
         "validation_client_name": "{{user `chef_clientname`}}",
         "chef_environment": "{{user `chef_environment`}}"
       }]
