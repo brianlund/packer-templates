@@ -38,7 +38,13 @@
       },
       {
         "type": "shell",
-        "inline": ["ls -lR /var"]
+        "inline": ["sudo rm -rf /usr/share/nginx/html/*"]
+      },
+      {
+        "type": "file",
+        "destination": "/usr/share/nginx/html",
+        "source": "startwiz/"
+
       }
     ]
     }
