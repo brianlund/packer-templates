@@ -47,7 +47,7 @@
       },
       {
         "type": "shell",
-        "inline": ["sudo mv startwiz/* /usr/share/nginx/html/"]
+        "inline": ["sudo mv startwiz/src/* /usr/share/nginx/html/"]
       }
     ]
     }
