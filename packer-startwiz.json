@@ -34,8 +34,13 @@
     "provisioners": [
       {
         "type": "shell",
-        "inline": ["echo foo"]
-      }]
+        "inline": ["sudo yum install -y nginx", "sudo systemctl enable nginx", "sudo systemctl start nginx"]
+      },
+      {
+        "type": "shell",
+        "inline": ["ls -lR /var"]
+      }
+    ]
     }
     
     
