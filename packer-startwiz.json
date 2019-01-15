@@ -38,13 +38,16 @@
       },
       {
         "type": "shell",
-        "inline": ["sudo rm -rf /usr/share/nginx/html/*"]
+        "inline": ["sudo rm -rf /usr/share/nginx/html/*", "mkdir startwiz"]
       },
       {
         "type": "file",
-        "destination": "/usr/share/nginx/html",
+        "destination": "startwiz",
         "source": "startwiz/"
-
+      },
+      {
+        "type": "shell",
+        "inline": ["sudo mv startwiz/* /usr/share/nginx/html/"]
       }
     ]
     }
