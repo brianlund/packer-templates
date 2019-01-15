@@ -34,7 +34,7 @@
     "provisioners": [
       {
         "type": "shell",
-        "inline": ["sudo yum install -y epel-release","sudo yum install -y nginx", "sudo systemctl enable nginx", "sudo systemctl start nginx"]
+        "inline": ["sudo amazon-linux-extras install epel","sudo yum install -y nginx", "sudo systemctl enable nginx", "sudo systemctl start nginx"]
       },
       {
         "type": "shell",
